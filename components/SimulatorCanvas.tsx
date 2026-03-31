@@ -63,7 +63,7 @@ export default function SimulatorCanvas({ region }: Props) {
     } catch {}
 
     // Clear stale status after 12s
-    const t = setTimeout(() => { if (alive && !gotFrame) setStatus(''); }, 12000);
+    const t = setTimeout(() => { if (alive && !gotFrame) setStatus(''); }, 120000);
 
     return () => { alive = false; clearTimeout(t); wsRef.current?.close(); wsRef.current = null; };
   }, [region]);
