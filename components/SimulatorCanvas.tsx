@@ -36,7 +36,7 @@ export default function SimulatorCanvas({ region }: Props) {
 
   // ── Try connecting to Taichi backend ──
   useEffect(() => {
-    const url = `${process.env.NEXT_PUBLIC_BACKEND_WS || 'ws://localhost:8000'}/ws/${region}`;
+    const url = `wss://website-production-8808.up.railway.app/ws/${region}`;
     let alive = true;
 
     try {
