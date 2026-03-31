@@ -26,7 +26,9 @@ app.add_middleware(
 
 SCRIPT_DIR = Path(__file__).parent.resolve()
 WORKER_PATH = SCRIPT_DIR / "sim_worker.py"
-SIM_DIR = SCRIPT_DIR.parent / "simulators"
+_docker_path = Path("/simulators")
+_local_path  = SCRIPT_DIR.parent / "simulators"
+SIM_DIR = _docker_path if _docker_path.exists() else _local_path
 
 REGIONS = {
     "wind": {"name": "Wind Tunnel", "repo": "Wind_Tunnel", "entry": "Wind_Tunnel.py"},
@@ -194,3 +196,4 @@ async def health():
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
+    
