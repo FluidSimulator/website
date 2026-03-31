@@ -1,0 +1,8 @@
+fastapi>=0.109.0
+uvicorn[standard]>=0.27.0
+websockets>=12.0
+numpy>=1.24.0
+Pillow>=10.0.0
+# Simulator dependencies (required for Taichi backends):
+taichi>=1.6.0
+# torch>=2.0.0  # only needed for Wind_Tunnel CNN super-resolution

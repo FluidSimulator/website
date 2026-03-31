@@ -1,0 +1,33 @@
+version: '3.8'
+
+services:
+  # Python FastAPI backend — wraps Taichi simulators
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      # Simulator repos (included in the project under simulators/)
+      - ./simulators/Wind_Tunnel:/app/Wind_Tunnel:ro
+      - ./simulators/Fire_sim:/app/Fire_sim:ro
+      - ./simulators/water_sim:/app/water_sim:ro
+      - ./simulators/Eulerian_paint_sim:/app/Eulerian_paint_sim:ro
+    environment:
+      - WIND_REPO=/app/Wind_Tunnel
+      - FIRE_REPO=/app/Fire_sim
+      - WATER_REPO=/app/water_sim
+      - PAINT_REPO=/app/Eulerian_paint_sim
+
+  # Next.js frontend
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_BACKEND_WS=ws://backend:8000
+    depends_on:
+      - backend
